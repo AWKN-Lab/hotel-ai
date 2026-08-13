@@ -95,26 +95,12 @@ function setupVoice(){
  };
 }
 
-function patchOperationConclusion(){
- const operation=$('.workspace-mode-tab[data-workspace-mode="operation"]');
- const conclusion=$('.stage-tab[data-stage="conclusion"]');
- const box=$('#workspace-content');
- if(!operation||!conclusion||!box||!operation.classList.contains('active')||!conclusion.classList.contains('active'))return;
- if(!/(持续观察|持有观察)/.test(box.textContent))return;
- box.innerHTML=`
- <div class="ws-title-row"><div><div class="ws-kicker">Operation Diagnosis</div><div class="ws-title">经营诊断结论</div><div class="ws-desc">把经营问题按影响与可执行性排序，形成改善动作和复盘指标。</div></div><span class="status-chip warn">3 项优先问题</span></div>
- <div class="gate-card"><div class="gate-top"><span class="gate-badge" style="background:var(--warning)">诊断完成</span><strong>当前经营核心问题：渠道依赖偏高 + 固定成本承压 + 价格提升空间未充分验证</strong></div><p>经营改善先处理影响最大的变量，再用实际经营数据验证动作效果。</p></div>
- <div class="operation-priority-grid"><div class="operation-priority"><b>P1 渠道结构</b><span>OTA 64%，优先压降平台依赖，建立直销与协议客户增量。</span></div><div class="operation-priority"><b>P1 租金承受力</b><span>租金占比 29%，固定成本对利润弹性形成明显压力。</span></div><div class="operation-priority"><b>P2 ADR 优化</b><span>分日期、房型、客群验证价格带，避免单纯降价换入住率。</span></div></div>
- <div class="action-plan"><div class="action-box"><div class="action-day">30</div><strong>定位问题</strong><p>拆渠道成本、客源结构、租金和人工，建立经营基线。</p></div><div class="action-box"><div class="action-day">60</div><strong>执行改善</strong><p>测试直销、协议客和 ADR 策略，按周跟踪指标变化。</p></div><div class="action-box"><div class="action-day">90</div><strong>复盘验证</strong><p>回填 OCC、ADR、RevPAR、OTA、利润率，验证动作是否有效。</p></div></div>
- <div class="ws-card soft" style="margin-top:9px"><h4>复盘指标</h4><p style="margin-top:6px">OCC · ADR · RevPAR · OTA 占比 · 获客成本 · 租金占比 · 人工成本率 · GOP/经营利润。</p></div>`;
-}
-
 function observeWorkspace(){
  const box=$('#workspace-content');if(!box)return;
- new MutationObserver(()=>{if(/(持续观察|持有观察)/.test(box.textContent))setTimeout(patchOperationConclusion,0);}).observe(box,{childList:true,subtree:true});
- document.addEventListener('click',()=>setTimeout(()=>{patchOperationConclusion();patchUploadRows();},30));
+ new MutationObserver(()=>setTimeout(patchUploadRows,0)).observe(box,{childList:true});
+ document.addEventListener('click',()=>setTimeout(patchUploadRows,30));
 }
 
 injectStyles();setupUpload();setupVoice();observeWorkspace();
-setTimeout(()=>{patchOperationConclusion();patchUploadRows();},100);
+setTimeout(patchUploadRows,100);
 })();
