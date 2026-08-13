@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="程掌柜 Hotel AI — 酒店经营体检与投资风险辅助研判 Demo" />
+  <title>程掌柜 · Hotel AI</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <div class="eyebrow">GOAI 无界应用 · AI+金融</div>
+      <h1>程掌柜 <span>Hotel AI</span></h1>
+      <p>酒店经营体检与投资风险辅助研判 Demo</p>
+    </div>
+    <div class="top-actions">
+      <span class="demo-badge">模拟数据 Demo</span>
+      <button id="resetBtn" class="ghost-btn">重置演示</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="progress-card">
+      <div class="progress-head">
+        <div>
+          <div class="section-kicker">6 分钟演示链</div>
+          <h2 id="stepTitle">1. 创建项目</h2>
+        </div>
+        <div id="stepCounter" class="step-counter">1 / 6</div>
+      </div>
+      <div id="stepper" class="stepper"></div>
+    </section>
+
+    <section id="stage" class="stage-card"></section>
+
+    <section class="footer-note">
+      <strong>边界声明：</strong> 本仓库展示的是公开可复现的赛事 Demo。数据均为模拟数据；输出仅用于经营与投资风险辅助研判，不替代任何专业机构或投资人的最终判断。
+    </section>
+  </main>
+
+  <template id="projectTpl">
+    <div class="two-col">
+      <div>
+        <div class="section-kicker">STEP 01</div>
+        <h2>创建酒店尽调项目</h2>
+        <p class="muted">使用预置的 80 间客房模拟项目，体验从资料进入到决策交付的完整 Agent 工作流。</p>
+        <div class="form-grid">
+          <label>酒店名称<input id="hotelName" value="海湾城际酒店（模拟）" /></label>
+          <label>城市<input id="city" value="厦门" /></label>
+          <label>客房数<input id="rooms" type="number" value="80" /></label>
+          <label>项目类型<select id="projectType"><option>接手 + 翻牌评估</option><option>新建投资</option><option>经营改善</option></select></label>
+        </div>
+      </div>
+      <aside class="summary-panel">
+        <div class="section-kicker">项目目标</div>
+        <h3>判断这家酒店是否值得继续推进</h3>
+        <ul>
+          <li>核验经营底稿</li>
+          <li>发现高影响风险</li>
+          <li>比较三种经营情景</li>
+          <li>形成 30 / 60 / 90 天行动计划</li>
+        </ul>
+      </aside>
+    </div>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
