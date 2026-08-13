@@ -100,8 +100,7 @@ function patchOperationConclusion(){
  const conclusion=$('.stage-tab[data-stage="conclusion"]');
  const box=$('#workspace-content');
  if(!operation||!conclusion||!box||!operation.classList.contains('active')||!conclusion.classList.contains('active'))return;
- if(box.dataset.operationFixed==='1')return;
- box.dataset.operationFixed='1';
+ if(!/(持续观察|持有观察)/.test(box.textContent))return;
  box.innerHTML=`
  <div class="ws-title-row"><div><div class="ws-kicker">Operation Diagnosis</div><div class="ws-title">经营诊断结论</div><div class="ws-desc">把经营问题按影响与可执行性排序，形成改善动作和复盘指标。</div></div><span class="status-chip warn">3 项优先问题</span></div>
  <div class="gate-card"><div class="gate-top"><span class="gate-badge" style="background:var(--warning)">诊断完成</span><strong>当前经营核心问题：渠道依赖偏高 + 固定成本承压 + 价格提升空间未充分验证</strong></div><p>经营改善先处理影响最大的变量，再用实际经营数据验证动作效果。</p></div>
@@ -112,8 +111,8 @@ function patchOperationConclusion(){
 
 function observeWorkspace(){
  const box=$('#workspace-content');if(!box)return;
- new MutationObserver(()=>{box.dataset.operationFixed='';setTimeout(()=>{patchOperationConclusion();patchUploadRows();},0);}).observe(box,{childList:true});
- document.addEventListener('click',()=>setTimeout(()=>{patchOperationConclusion();patchUploadRows();},20));
+ new MutationObserver(()=>{if(/(持续观察|持有观察)/.test(box.textContent))setTimeout(patchOperationConclusion,0);}).observe(box,{childList:true,subtree:true});
+ document.addEventListener('click',()=>setTimeout(()=>{patchOperationConclusion();patchUploadRows();},30));
 }
 
 injectStyles();setupUpload();setupVoice();observeWorkspace();
