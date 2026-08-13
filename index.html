@@ -1,71 +1,131 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="程掌柜 Hotel AI — 酒店经营体检与投资风险辅助研判 Demo" />
-  <title>程掌柜 · Hotel AI</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="程掌柜·酒店投融尽调 Agent — GOAI 无界应用公开 Demo">
+  <title>程掌柜 - 酒店投资经营军师</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <header class="topbar">
-    <div>
-      <div class="eyebrow">GOAI 无界应用 · AI+金融</div>
-      <h1>程掌柜 <span>Hotel AI</span></h1>
-      <p>酒店经营体检与投资风险辅助研判 Demo</p>
-    </div>
-    <div class="top-actions">
-      <span class="demo-badge">模拟数据 Demo</span>
-      <button id="resetBtn" class="ghost-btn">重置演示</button>
-    </div>
-  </header>
+  <div class="app-grid" id="app-grid">
+    <button class="sidebar-toggle" id="sidebar-toggle" aria-label="打开菜单"><i class="fa fa-bars"></i></button>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <main class="app-shell">
-    <section class="progress-card">
-      <div class="progress-head">
+    <aside id="sidebar" class="project-nav">
+      <button class="sidebar-close-btn" id="sidebar-close-btn" aria-label="关闭菜单"><i class="fa fa-times"></i></button>
+
+      <div class="brand-block">
+        <div class="brand-avatar">程</div>
         <div>
-          <div class="section-kicker">6 分钟演示链</div>
-          <h2 id="stepTitle">1. 创建项目</h2>
-        </div>
-        <div id="stepCounter" class="step-counter">1 / 6</div>
-      </div>
-      <div id="stepper" class="stepper"></div>
-    </section>
-
-    <section id="stage" class="stage-card"></section>
-
-    <section class="footer-note">
-      <strong>边界声明：</strong> 本仓库展示的是公开可复现的赛事 Demo。数据均为模拟数据；输出仅用于经营与投资风险辅助研判，不替代任何专业机构或投资人的最终判断。
-    </section>
-  </main>
-
-  <template id="projectTpl">
-    <div class="two-col">
-      <div>
-        <div class="section-kicker">STEP 01</div>
-        <h2>创建酒店尽调项目</h2>
-        <p class="muted">使用预置的 80 间客房模拟项目，体验从资料进入到决策交付的完整 Agent 工作流。</p>
-        <div class="form-grid">
-          <label>酒店名称<input id="hotelName" value="海湾城际酒店（模拟）" /></label>
-          <label>城市<input id="city" value="厦门" /></label>
-          <label>客房数<input id="rooms" type="number" value="80" /></label>
-          <label>项目类型<select id="projectType"><option>接手 + 翻牌评估</option><option>新建投资</option><option>经营改善</option></select></label>
+          <h1>程掌柜</h1>
+          <p>酒店投资经营军师</p>
         </div>
       </div>
-      <aside class="summary-panel">
-        <div class="section-kicker">项目目标</div>
-        <h3>判断这家酒店是否值得继续推进</h3>
-        <ul>
-          <li>核验经营底稿</li>
-          <li>发现高影响风险</li>
-          <li>比较三种经营情景</li>
-          <li>形成 30 / 60 / 90 天行动计划</li>
-        </ul>
-      </aside>
-    </div>
-  </template>
 
+      <div class="sidebar-scroll">
+        <button id="new-conversation-btn" class="new-chat-btn"><i class="fa fa-plus"></i><span>发起新咨询</span></button>
+
+        <section class="sidebar-section">
+          <h3><i class="fa fa-folder-open-o"></i>项目档案 <span id="project-count">2</span></h3>
+          <select id="project-select">
+            <option value="goai">厦门海湾城际酒店（演示）</option>
+            <option value="default">默认项目</option>
+          </select>
+          <div class="project-actions">
+            <button id="project-new-btn"><i class="fa fa-plus"></i> 新建</button>
+            <button id="project-manage-btn"><i class="fa fa-archive"></i> 归档</button>
+          </div>
+        </section>
+
+        <section class="sidebar-section">
+          <h3>我的对话</h3>
+          <div id="conversation-list" class="conversation-list"></div>
+        </section>
+
+        <section class="sidebar-section workspace-entry-section">
+          <h3><i class="fa fa-briefcase"></i>工作台</h3>
+          <button data-workspace="investment" class="workspace-entry-btn active"><i class="fa fa-briefcase"></i><span>投资分析</span></button>
+          <button data-workspace="operation" class="workspace-entry-btn"><i class="fa fa-line-chart"></i><span>经营分析</span></button>
+        </section>
+      </div>
+
+      <div class="user-block">
+        <div class="user-avatar">G</div>
+        <div class="user-copy"><strong>GOAI 评委体验</strong><span>公开演示模式</span></div>
+        <span class="demo-dot" title="Demo"></span>
+      </div>
+    </aside>
+
+    <div class="resizer resizer-left" role="separator" data-side="left"></div>
+
+    <main id="chat-main">
+      <header class="chat-header">
+        <div class="header-title">
+          <span class="header-title-icon"><i class="fa fa-comments"></i></span>
+          <span class="header-title-text">对话工作台</span>
+        </div>
+        <div class="header-actions">
+          <span class="goai-chip">GOAI · AI+金融</span>
+          <button id="share-chat-btn" class="btn-secondary"><i class="fa fa-share-alt"></i><span>分享</span></button>
+        </div>
+      </header>
+
+      <section class="chat-scroll" id="chat-scroll">
+        <div class="chat-column">
+          <div id="chat-history" class="chat-history"></div>
+        </div>
+      </section>
+
+      <footer class="chat-footer">
+        <div class="chat-column">
+          <p class="disclaimer">程掌柜生成的观点仅供决策参考，投资有风险，入局需谨慎。</p>
+          <form id="chat-form" class="input-dock">
+            <button type="button" class="dock-plus-btn" aria-label="更多"><i class="fa fa-plus"></i></button>
+            <div class="dock-input-wrap">
+              <input id="user-input" class="dock-input" maxlength="500" autocomplete="off" placeholder="输入城市+物业情况，例如：我在厦门看一家80间房酒店，年租金238万…">
+              <span id="dock-count" class="dock-count">0/500</span>
+            </div>
+            <button type="button" class="dock-icon-btn" aria-label="语音"><i class="fa fa-microphone"></i></button>
+            <button type="submit" class="dock-send-btn" aria-label="发送"><i class="fa fa-arrow-up"></i></button>
+          </form>
+        </div>
+      </footer>
+    </main>
+
+    <div class="resizer resizer-right" role="separator" data-side="right"></div>
+
+    <aside id="investment-workspace" aria-label="投资经营工作台">
+      <div class="workspace-mode-tabs" role="tablist">
+        <button class="workspace-mode-tab active" data-workspace-mode="investment"><i class="fa fa-briefcase"></i><span>投资分析</span></button>
+        <button class="workspace-mode-tab" data-workspace-mode="operation"><i class="fa fa-line-chart"></i><span>经营分析</span></button>
+      </div>
+      <div class="workspace-header">
+        <div>
+          <div class="workspace-kicker">当前项目</div>
+          <div class="workspace-project-name" id="workspace-project-name">厦门海湾城际酒店（演示）</div>
+        </div>
+        <button id="reset-demo-btn" class="workspace-icon-btn" title="重置演示"><i class="fa fa-refresh"></i></button>
+      </div>
+      <div class="workspace-stage-tabs" id="workspace-stage-tabs">
+        <button class="stage-tab active" data-stage="data">资料</button>
+        <button class="stage-tab" data-stage="diagnosis">诊断</button>
+        <button class="stage-tab" data-stage="plan">方案</button>
+        <button class="stage-tab" data-stage="conclusion">结论</button>
+      </div>
+      <div class="workspace-content" id="workspace-content"></div>
+    </aside>
+  </div>
+
+  <nav class="mobile-bottom-tabs" id="mobile-bottom-tabs" aria-label="主要导航">
+    <button class="tab-btn active" data-tab="chat"><i class="fa fa-comments"></i><span>对话</span></button>
+    <button class="tab-btn" data-tab="investment"><i class="fa fa-briefcase"></i><span>投资分析</span></button>
+    <button class="tab-btn" data-tab="operation"><i class="fa fa-line-chart"></i><span>经营分析</span></button>
+    <button class="tab-btn" data-tab="project"><i class="fa fa-folder-open-o"></i><span>项目</span></button>
+  </nav>
+
+  <div class="mobile-workspace-overlay" id="mobile-workspace-overlay"></div>
   <script src="./app.js"></script>
-  <script src="./demo-plus.js"></script>
 </body>
 </html>
