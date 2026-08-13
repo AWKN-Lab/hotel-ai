@@ -25,10 +25,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Validate static demo
+        shell: bash
+        run: |
+          node --check app.js
+          test -f index.html
+          test -f styles.css
+          grep -q 'id="sidebar"' index.html
+          grep -q 'id="chat-main"' index.html
+          grep -q 'id="investment-workspace"' index.html
+          grep -q '程掌柜 - 酒店投资经营军师' index.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v4
