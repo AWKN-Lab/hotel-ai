@@ -8,13 +8,11 @@
 本仓库是 GOAI 无界应用赛道的**公开可复现赛事 Demo**。页面沿用程掌柜真实产品 HATWIN 的三栏工作台逻辑，同时隔离账号、数据库、真实客户数据、密钥和私有生产服务。
 
 ## 链接
-
 - GOAI 公开 Demo：https://awkn-lab.github.io/hotel-ai/
 - 开源仓库：https://github.com/AWKN-Lab/hotel-ai
 - 正式产品：https://awkn.cn/win/
 
 ## 当前公开 Demo 能力
-
 ### 输入与项目
 - 项目档案与多轮对话
 - 文本输入
