@@ -43,12 +43,6 @@
           <h3>我的对话</h3>
           <div id="conversation-list" class="conversation-list"></div>
         </section>
-
-        <section class="sidebar-section workspace-entry-section">
-          <h3><i class="fa fa-briefcase"></i>工作台</h3>
-          <button data-workspace="investment" class="workspace-entry-btn active"><i class="fa fa-briefcase"></i><span>投资分析</span></button>
-          <button data-workspace="operation" class="workspace-entry-btn"><i class="fa fa-line-chart"></i><span>经营分析</span></button>
-        </section>
       </div>
 
       <div class="user-block">
@@ -80,15 +74,23 @@
 
       <footer class="chat-footer">
         <div class="chat-column">
+          <div id="attachment-strip" class="attachment-strip" aria-live="polite"></div>
+          <div id="voice-status-demo" class="voice-status-demo" aria-live="polite"></div>
           <p class="disclaimer">程掌柜生成的观点仅供决策参考，投资有风险，入局需谨慎。</p>
           <form id="chat-form" class="input-dock">
-            <button type="button" class="dock-plus-btn" aria-label="更多"><i class="fa fa-plus"></i></button>
+            <button type="button" class="dock-plus-btn" aria-label="添加资料"><i class="fa fa-plus"></i></button>
             <div class="dock-input-wrap">
               <input id="user-input" class="dock-input" maxlength="500" autocomplete="off" placeholder="输入城市+物业情况，例如：我在厦门看一家80间房酒店，年租金238万…">
               <span id="dock-count" class="dock-count">0/500</span>
             </div>
-            <button type="button" class="dock-icon-btn" aria-label="语音"><i class="fa fa-microphone"></i></button>
+            <button type="button" class="dock-icon-btn" aria-label="语音输入" title="语音输入"><i class="fa fa-microphone"></i></button>
             <button type="submit" class="dock-send-btn" aria-label="发送"><i class="fa fa-arrow-up"></i></button>
+            <input id="demo-file-input" type="file" hidden multiple accept=".pdf,.xls,.xlsx,.csv,.tsv,.txt,.md,.json,.doc,.docx">
+            <div id="attachment-menu" class="attachment-menu" aria-hidden="true">
+              <button type="button" data-attach="upload"><i class="fa fa-upload"></i><span>上传资料</span></button>
+              <button type="button" data-attach="demo"><i class="fa fa-magic"></i><span>加载演示材料</span></button>
+              <button type="button" data-attach="project"><i class="fa fa-folder-open-o"></i><span>从项目选择</span></button>
+            </div>
           </form>
         </div>
       </footer>
@@ -127,5 +129,6 @@
 
   <div class="mobile-workspace-overlay" id="mobile-workspace-overlay"></div>
   <script src="./app.js"></script>
+  <script src="./demo-enhancements.js"></script>
 </body>
 </html>
